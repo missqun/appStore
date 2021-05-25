@@ -136,7 +136,7 @@ export default {
     },
     // 跳转app详情
     toDetail (item) {
-      this.$router.push({name: 'detail', params: item})
+      this.$router.push({name: 'detail', query: {id: (item.id.attributes)['im:id']}})
     },
     // 下拉刷新免费app列表
     onRefresh () {

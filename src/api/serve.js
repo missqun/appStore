@@ -14,5 +14,12 @@ export default {
       method: 'get',
       url: `/hk/rss/topfreeapplications/limit=${data.limit}/json`
     })
+  },
+  // 获取app数据
+  getAppInfo (data) {
+    return axios({
+      method: 'get',
+      url: `/hk/lookup?id=${data.join(',')}`
+    })
   }
 }

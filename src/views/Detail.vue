@@ -1,24 +1,46 @@
 <template>
     <div class="app-info">
         <div class="flex-start">
-            <img  class="info-img" :src="appInfo['im:image'][2].label" alt="">
+            <img  class="info-img" :src="appInfo.artworkUrl100" alt="">
             <div class="info-title">
-                <p>{{appInfo.title.label}}</p>
-                <p class="type">{{appInfo.category.attributes.label}}</p>
-                <van-button class="btn" @click="alert('开始下载了')" round type="info">下载</van-button>
+                <p>{{appInfo.trackCensoredName}}</p>
+                <p class="type">{{appInfo.formattedPrice}}</p>
+                <van-button class="btn" @click="downLoad" round type="info">下载</van-button>
             </div>
         </div>
         <p class="desc-title">应用描述:</p>
-        <p class="desc">{{appInfo.summary.label}}</p>
+        <p class="desc">{{appInfo.description}}</p>
     </div>
 </template>
 <script>
+import serve from '@/api/serve.js'
 export default {
   name: 'detail',
-  computed: {
-    appInfo () {
-      return this.$route.params || {}
+  data () {
+    return {
+      appInfo: {}
     }
+  },
+  computed: {
+    id () {
+      return this.$route.query.id
+    }
+  },
+  methods: {
+    // 获取AppInfo
+    async getAppInfoFun () {
+      const reqData = [this.id]
+      let resData = await serve.getAppInfo(reqData)
+      let { results } = { ...resData }
+      this.appInfo = results[0] || {}
+      console.log(this.appInfo)
+    },
+    downLoad () {
+      alert('下载')
+    }
+  },
+  mounted () {
+    this.getAppInfoFun()
   }
 }
 </script>
