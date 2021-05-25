@@ -22,7 +22,8 @@ exports.cssLoaders = function (options) {
     }
   }
 
-  const px2remLoader = {
+  const px2remLoader
+   = {
     loader: 'px2rem-loader',
     options: {
       remUnit: 75
