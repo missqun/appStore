@@ -51,33 +51,33 @@ export default {
        height:100vh;
        background: #fff;
        box-sizing: border-box;
-       padding: 20px 12px;
+       padding: 40px 24px;
        .info-img{
-           border-radius: 20px;
-           height:90px;
-           margin-top:20px;
+           border-radius: 40px;
+           height:180px;
+           margin-top:40px;
        }
        .info-title{
            width:66%;
            margin-left:2%;
-           margin-top:30px;
-           font-size: 18px;
+           margin-top:60px;
+           font-size: 36px;
            font-weight: bold;
            .type{
                color:#999;
            }
            .btn{
                text-align: right;
-               width:100px;
+               width:200px;
                float: right;
            }
        }
        .desc-title{
-           font-size:16px;
-           margin:10px 0;
+           font-size:32px;
+           margin:20px 0;
        }
        .desc{
-           font-size:14px;
+           font-size:28px;
        }
    }
 </style>

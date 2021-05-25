@@ -167,13 +167,13 @@ export default {
     .recommend-container{
       width:100%;
       box-sizing: border-box;
-      padding:5px 0 5px 12px;
-      margin-top:50px;
+      padding:10px 0 10px 24px;
+      margin-top:100px;
       background: #fff;
-      border-bottom: 1px solid #ecebeb;
-      border-top: 1px solid #ecebeb;
+      border-bottom: 2px solid #ecebeb;
+      border-top: 2px solid #ecebeb;
       .reconmend-title{
-        margin: 10px 0;
+        margin: 20px 0;
       }
       .swper-list-box{
         width:100%;
@@ -182,32 +182,32 @@ export default {
           width: 0 !important
         }
         .swper-list{
-            width:900px;
-            height:130px;
+            width:1800px;
+            height:260px;
             display: flex;
             justify-content: flex-start;
             flex-wrap: nowrap;
             .swper-item{
-              width:75px !important;
-              height:75px;
-              margin-right:15px;
+              width:150px !important;
+              height:150px;
+              margin-right:30px;
               color:#333;
               img{
                 height:100%;
-                border-radius: 15px;
+                border-radius: 30px;
               }
               p{
-                width:75px;
-                margin-top:10px;
-                font-size:12px;
+                width:150px;
+                margin-top:20px;
+                font-size:24px;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 text-align: center;
                 &.content-type{
-                  margin-top:5px;
+                  margin-top:10px;
                   color:#999;
-                  font-size: 12px;
+                  font-size: 24px;
                   font-weight: bold;
                 }
               }
@@ -218,51 +218,51 @@ export default {
     }
     .free-list{
       &.margin50{
-        margin-top:50px;
+        margin-top:100px;
       }
       .icon{
-        height:53px;
+        height:106px;
         display: flex;
         justify-content: flex-start;
         flex-wrap: nowrap;
         .icon-index{
-          margin-right:15px;
-          line-height: 53px;
+          margin-right:30px;
+          line-height: 106px;
           color:#999;
         }
         .icon-img{
-          width:53px;
+          width:106px;
           vertical-align: bottom;
           &.round{
             border-radius: 50%;
           }
           &.square{
-            border-radius: 15px;
+            border-radius: 30px;
           }
         }
       }
       .title{
-        width:210px;
+        width:420px;
         overflow:hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        margin-left:15px;
+        margin-left:30px;
         font-weight: bold;
       }
       .label{
         color:#999;
-        margin-left:15px;
-        margin-top:-5px;
+        margin-left:30px;
         font-weight: bold;
         .count{
           font-weight: 500;
-          margin-left:5px;
+          margin-left:10px;
         }
         .desc{
-          width:260px;
+          width:520px;
           overflow:hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          margin-top:20px;
         }
       }
     }
