@@ -2,20 +2,20 @@
 
 > for test
 
-## Build Setup
-
-``` bash
-# install dependencies
+# 安装依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 运行项目
 npm run dev
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
+### 预览项目
 ```
+http://本机ip:8080/#/
+例:http://172.16.229.183:8080/#/
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+注:手机预览效果请保证和电脑连的是同一个网络(wifi)
+```
+### Lints and fixes files
+```
+npm run lint
+```
