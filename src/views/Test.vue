@@ -3,7 +3,7 @@
     <van-search
     class="search"
     shape="round"
-    v-model="keyWord"
+    v-model.trim="keyWord"
     @input="onSearch"
     placeholder="Search..." >
     </van-search>
@@ -12,10 +12,10 @@
         <p class="reconmend-title">Recommend</p>
         <div class="swper-list-box" style="width:100%;over">
           <ul class="swper-list">
-            <li class="swper-item" v-for="(item, index) in recommendList" :key="index" @click="toDetail(item)">
-              <img :src='item["im:image"][2].label' alt="">
-              <p class="name">{{item["im:name"].label}}</p>
-              <p class="content-type">{{item.category.attributes.label}}</p>
+            <li class="swper-item" v-for="item in recommendList" :key="item.artistId" @click="toDetail(item)">
+              <img :src='item.artworkUrl100' alt="">
+              <p class="name">{{item.trackName}}</p>
+              <p class="content-type">{{item.genres[0]}}</p>
             </li>
           </ul>
         </div>
@@ -26,22 +26,22 @@
           class="free-list"
           :finished="finished"
         >
-          <van-cell v-for="(item,index) in freeDownloadList" :key="(item.id.attributes)['im:id']"  @click.native="toDetail(item)">
+          <van-cell v-for="(item,index) in freeDownloadList" :key="item.artistId"  @click.native="toDetail(item)">
             <template #icon>
               <div class="icon flex-start">
                 <p class="icon-index">{{index+1}}</p>
-                <img :class='["icon-img",index%2 ==0 ?"square":"round"]' :src='item["im:image"][1].label' alt="">
+                <img :class='["icon-img",index%2 ==0 ?"square":"round"]' :src='item.artworkUrl60' alt="">
               </div>
             </template>
             <template #title>
-                <p class="title">{{item.title.label}}</p>
+                <p class="title">{{item.trackName}}</p>
             </template>
             <template #label>
               <div  class="label">
-                <p>{{item.category.attributes.label}}</p>
+                <p>{{item.genres[0]}}</p>
                 <van-rate
-                  :value="fomateRate(index)" allow-half void-icon="star-o" :count="5" :size="10" :gutter="2" readonly color="#d7d73f"  />
-                <span class="count">({{(item.category.attributes)['im:id']}})</span>
+                  :value="item.averageUserRating" allow-half void-icon="star-o" :count="5" :size="10" :gutter="2" readonly color="#d7d73f"  />
+                <span class="count">({{item.userRatingCount}})</span>
               </div>
             </template>
           </van-cell>
@@ -50,24 +50,23 @@
     </template>
     <template v-else>
       <van-list  :class="['free-list',keyWord.length > 0? 'margin50': '']">
-        <van-cell v-for="item in relativeList" :key="(item.id.attributes)['im:id']"  @click.native="toDetail(item)">
+        <van-cell v-for="item in relativeList" :key="item.artistId"  @click.native="toDetail(item)">
           <template #icon>
             <div class="icon">
-              <img class="icon-img square" :src='item["im:image"][1].label' alt="">
+              <img class="icon-img square" :src='item.artworkUrl60' alt="">
             </div>
           </template>
           <template #title>
-              <p class="title">{{item.title.label}}</p>
+              <p class="title">{{item.trackName}}</p>
           </template>
           <template #label>
             <div  class="label">
-              <p class="author">{{item.category.attributes.label}}</p>
-              <p class="desc">{{item.summary.label}}</p>
+              <p class="author">{{item.genres[0]}}</p>
+              <p class="desc">{{item.description}}</p>
             </div>
           </template>
         </van-cell>
       </van-list>
-      <!-- <van-empty v-else image="search" description="暂无该应用信息" /> -->
     </template>
   </div>
 </template>
@@ -87,15 +86,8 @@ export default {
       refreshing: false
     }
   },
-  // watch: {
-  //   keyWord (val) {
-  //     if (val.length === 0) {
-  //       this.startSearch = false
-  //     }
-  //   }
-  // },
   methods: {
-    // 初始化界面
+    // 初始化
     init () {
       this.getRecommendFun()
       this.getFreeDownloadFun()
@@ -106,7 +98,15 @@ export default {
         limit: 10
       }
       let resData = await serve.getRecommend(reqData)
-      this.recommendList = resData.feed.entry || []
+      let idArr = []
+      resData.feed.entry.map(item => {
+        if (item.id) {
+          idArr.push(item.id.attributes['im:id'])
+        }
+      })
+      let idsString = idArr.join(',')
+      let matchRes = await serve.matchData(idsString)
+      this.recommendList = matchRes.results
     },
     // 获取免费下载app列表
     async getFreeDownloadFun () {
@@ -114,7 +114,15 @@ export default {
         limit: 100
       }
       let resData = await serve.getFreeDownload(reqData)
-      this.freeDownloadList = resData.feed.entry || []
+      let idArr = []
+      resData.feed.entry.map(item => {
+        if (item.id) {
+          idArr.push(item.id.attributes['im:id'])
+        }
+      })
+      let idsString = idArr.join(',')
+      let matchRes = await serve.matchData(idsString)
+      this.freeDownloadList = matchRes.results
       this.allAppResource()
       this.refreshing = false
       this.finished = true
@@ -124,19 +132,16 @@ export default {
     allAppResource () {
       this.appResource = this.recommendList.concat(this.freeDownloadList)
     },
-    fomateRate (value) {
-      return parseFloat((100 - value) / 20)
-    },
     // search事件
     onSearch () {
       this.relativeList = []
       this.relativeList = this.appResource.filter(item => {
-        return item.title.label.indexOf(this.keyWord) > -1 || item.summary.label.indexOf(this.keyWord) > -1
+        return item.trackName.indexOf(this.keyWord) > -1 || item.description.indexOf(this.keyWord) > -1 || item.artistName.indexOf(this.keyWord) > -1
       })
     },
     // 跳转app详情
     toDetail (item) {
-      this.$router.push({name: 'detail', query: {id: (item.id.attributes)['im:id']}})
+      this.$router.push({name: 'detail', params: item})
     },
     // 下拉刷新免费app列表
     onRefresh () {

@@ -2,7 +2,7 @@
 import axios from 'axios'
 const axiosInstance = axios.create({
   baseURL: 'https://itunes.apple.com',
-  timeout: 30000
+  timeout: 60000
 })
 axiosInstance.interceptors.response.use((res) => {
   if (res.status === 200) {

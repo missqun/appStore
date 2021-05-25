@@ -13,34 +13,17 @@
     </div>
 </template>
 <script>
-import serve from '@/api/serve.js'
 export default {
   name: 'detail',
-  data () {
-    return {
-      appInfo: {}
-    }
-  },
   computed: {
-    id () {
-      return this.$route.query.id
+    appInfo () {
+      return this.$route.params
     }
   },
   methods: {
-    // 获取AppInfo
-    async getAppInfoFun () {
-      const reqData = [this.id]
-      let resData = await serve.getAppInfo(reqData)
-      let { results } = { ...resData }
-      this.appInfo = results[0] || {}
-      console.log(this.appInfo)
-    },
     downLoad () {
       alert('下载')
     }
-  },
-  mounted () {
-    this.getAppInfoFun()
   }
 }
 </script>

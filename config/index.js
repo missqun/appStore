@@ -11,11 +11,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       // '/hk': {
-      //   target: 'https://itunes.apple.com',
+      //   target: 'https://itunes.apple.com/hk/',
       //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/hk': '/hk'          
-      //   }
       // }
     },
     host: '0.0.0.0',

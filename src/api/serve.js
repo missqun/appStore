@@ -15,11 +15,11 @@ export default {
       url: `/hk/rss/topfreeapplications/limit=${data.limit}/json`
     })
   },
-  // 获取app数据
-  getAppInfo (data) {
+  // 获取app应用的相关数据
+  matchData (data) {
     return axios({
-      method: 'get',
-      url: `/hk/lookup?id=${data.join(',')}`
+      method: 'post',
+      url: `/hk/lookup?id=${data}`
     })
   }
 }
