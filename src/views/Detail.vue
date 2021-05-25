@@ -14,12 +14,12 @@
 </template>
 <script>
 export default {
-    name: 'detail',
-    computed :{
-       appInfo () {
-           return this.$route.params || {}
-       }
+  name: 'detail',
+  computed: {
+    appInfo () {
+      return this.$route.params || {}
     }
+  }
 }
 </script>
 
