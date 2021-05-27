@@ -10,10 +10,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // '/hk': {
-      //   target: 'https://itunes.apple.com/hk/',
-      //   changeOrigin: true,
-      // }
+      '/hk/': {
+        target: 'https://itunes.apple.com/hk/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/hk/': ''
+        }
+      }
     },
     host: '0.0.0.0',
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined

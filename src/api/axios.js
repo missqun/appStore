@@ -1,7 +1,7 @@
 // 封装统一的请求
 import axios from 'axios'
 const axiosInstance = axios.create({
-  baseURL: 'https://itunes.apple.com',
+  // baseURL: 'https://itunes.apple.com',
   timeout: 60000
 })
 axiosInstance.interceptors.response.use((res) => {

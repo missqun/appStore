@@ -149,7 +149,7 @@ export default {
       this.loading = true
       setTimeout(() => {
         this.getFreeDownloadFun()
-      })
+      }, 500)
     }
   },
   mounted () {

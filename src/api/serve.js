@@ -5,7 +5,7 @@ export default {
   getRecommend (data) {
     return axios({
       method: 'get',
-      url: `hk/rss/topgrossingapplications/limit=${data.limit}/json`
+      url: `/hk/rss/topgrossingapplications/limit=${data.limit}/json`
     })
   },
   // 获取免费下载app列表
@@ -18,7 +18,7 @@ export default {
   // 获取app应用的相关数据
   matchData (data) {
     return axios({
-      method: 'post',
+      method: 'get',
       url: `/hk/lookup?id=${data}`
     })
   }
