@@ -12,7 +12,7 @@
         <p class="reconmend-title">Recommend</p>
         <div class="swper-list-box" style="width:100%;over">
           <ul class="swper-list">
-            <li class="swper-item" v-for="item in recommendList" :key="item.artistId" @click="toDetail(item)">
+            <li class="swper-item" v-for="(item, index) in recommendList" :key="index" @click="toDetail(item)">
               <img :src='item.artworkUrl100' alt="">
               <p class="name">{{item.trackName}}</p>
               <p class="content-type">{{item.genres[0]}}</p>
